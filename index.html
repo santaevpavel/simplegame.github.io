@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Escape!</title>
+</head>
+
+<body>
+    <div id="stage">
+        <canvas id="ui-layer" width="480" height="320"></canvas>
+        <canvas id="game-layer" width="480" height="320"></canvas>
+        <canvas id="background-layer" width="480" height="320"></canvas>
+    </div>
+    
+    <script src="js/field.js"></script>
+    <script src="js/game.js"></script>
+    <style>
+        #stage {
+            width: 480px;
+            height: 320px;
+            position: relative;
+            border: 2px solid black
+        }
+
+        canvas {
+            position: absolute;
+        }
+
+        #ui-layer {
+            z-index: 3
+        }
+
+        #game-layer {
+            z-index: 2
+        }
+
+        #background-layer {
+            z-index: 1
+        }
+    </style>
+    <script>
+        var stage = document.getElementById("stage")
+        var uiCanvas = document.getElementById("ui-layer")
+        var gameCanvas = document.getElementById("game-layer")
+        var backgroundCanvas = document.getElementById("background-layer")
+
+        function zoom() {
+            zoomCanvas(stage, uiCanvas)
+            zoomCanvas(stage, gameCanvas)
+            zoomCanvas(stage, backgroundCanvas)
+        }
+
+        function zoomCanvas(stage, canvas) {
+            var scaleX = window.innerWidth / canvas.width
+            var scaleY = window.innerHeight / canvas.height
+
+            var scaleToFit = Math.min(scaleX, scaleY)
+            var scaleToCover = Math.max(scaleX, scaleY)
+
+            stage.style.transformOrigin = '0 0' //scale from top left
+            stage.style.transform = 'scale(' + scaleToFit + ')'
+        }
+
+    </script>
+</body>
+
+</html>
